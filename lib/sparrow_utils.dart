@@ -6,12 +6,6 @@ import 'package:enum_to_string/enum_to_string.dart';
 
 export 'package:intl/intl.dart' show DateFormat;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
-
 class HGUtils {
   // map
   static Iterable<E> map<E, T>(
