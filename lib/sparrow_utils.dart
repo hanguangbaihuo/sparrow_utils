@@ -6,7 +6,7 @@ import 'package:enum_to_string/enum_to_string.dart';
 
 export 'package:intl/intl.dart' show DateFormat;
 
-class HGUtils {
+class SPUtils {
   // map
   static Iterable<E> map<E, T>(
       Iterable<T> items, E Function(int index, T item) fn) sync* {
