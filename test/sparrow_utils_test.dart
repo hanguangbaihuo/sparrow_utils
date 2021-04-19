@@ -6,11 +6,11 @@ enum Season { Spring, Summer, Autumn, Winter }
 
 void main() {
   test('enum To String', () {
-    assert(SPUtils.enumToString(Season.Autumn) == 'Autumn');
+    assert(SPEnumUtils.convertToString(Season.Autumn) == 'Autumn');
   });
 
   test('String to Enum', () {
-    assert(SPUtils.enumFromString<Season>(Season.values, 'Spring') ==
+    assert(SPEnumUtils.fromString<Season>(Season.values, 'Spring') ==
         Season.Spring);
   });
 }

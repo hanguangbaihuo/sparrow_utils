@@ -9,3 +9,10 @@
 ## [0.1.0] - 前缀HG -> SP
 
 * 前缀HG -> SP
+
+## [0.3.0] - 拆分几个文件
+
+* SPDateUtils
+* SPCollectionUtils
+* SPStringUtils
+* SPEnumUtils

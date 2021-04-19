@@ -1,34 +1,6 @@
 library sparrow_utils;
 
-import 'package:intl/intl.dart' show DateFormat;
-
-import 'package:enum_to_string/enum_to_string.dart';
-
-export 'package:intl/intl.dart' show DateFormat;
-
-class SPUtils {
-  // map
-  static Iterable<E> map<E, T>(
-      Iterable<T> items, E Function(int index, T item) fn) sync* {
-    var index = 0;
-
-    for (final item in items) {
-      yield fn(index, item);
-      index = index + 1;
-    }
-  }
-
-  // static get DateFormat => DateFormat;
-
-  static formatDate(DateTime dt, String format) {
-    return DateFormat(format).format(dt);
-  }
-
-  static String enumToString(enumItem) {
-    return EnumToString.parse(enumItem);
-  }
-
-  static T enumFromString<T>(List<T> enumValues, String str) {
-    return EnumToString.fromString(enumValues, str);
-  }
-}
+export './src/collection_utils.dart';
+export './src/datetime_utils.dart';
+export './src/enum_utils.dart';
+export './src/string_utils.dart';
