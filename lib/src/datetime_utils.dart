@@ -15,6 +15,18 @@ class SPDateUtils {
     return DateFormat(format, "zh_CN").format(dt);
   }
 
+  /// 通过字符串获得格式化的字符串
+  ///
+  /// 如果字符串不合法，返回null
+  static formatFromString(String formattedString,
+      [String format = 'yyyy-MM-dd HH:mm:ss']) {
+    final dt = DateTime.tryParse(formattedString);
+
+    if (dt == null) return null;
+
+    return DateFormat(format, "zh_CN").format(dt);
+  }
+
   /// 今天0时
   static DateTime get todayStart {
     final now = DateTime.now();

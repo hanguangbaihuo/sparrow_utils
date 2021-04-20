@@ -16,3 +16,7 @@
 * SPCollectionUtils
 * SPStringUtils
 * SPEnumUtils
+
+## [0.3.1]
+
+新增 `SPDateUtils.formatFromString`方法
