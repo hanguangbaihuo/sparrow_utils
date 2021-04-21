@@ -24,3 +24,7 @@
 ## [0.3.2]
 
 新增 `SPCollectionUtils.join`方法
+
+## [0.4.0]
+
+新增 `SPLayoutUtils` 工具类

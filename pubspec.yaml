@@ -1,6 +1,6 @@
 name: sparrow_utils
 description: Sparrow Utils Library for Flutter.
-version: 0.3.2
+version: 0.4.0
 homepage: https://github.com/sparrow-frontend/sparrow_utils
 
 environment:
@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   enum_to_string: ^1.0.9
+  flutter_screenutil: ^4.0.4+1
   intl: ^0.16.1
   time: ^1.4.1 #系统时间的增强扩展
 

@@ -16,7 +16,7 @@
 dependencies:
   flutter:
     sdk: flutter
-  sparrow_utils: ^0.3.1
+  sparrow_utils: ^0.4.0
 ```
 
 使用：
