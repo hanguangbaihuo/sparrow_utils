@@ -20,3 +20,7 @@
 ## [0.3.1]
 
 新增 `SPDateUtils.formatFromString`方法
+
+## [0.3.2]
+
+新增 `SPCollectionUtils.join`方法
