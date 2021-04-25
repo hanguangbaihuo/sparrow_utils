@@ -28,3 +28,7 @@
 ## [0.4.0]
 
 新增 `SPLayoutUtils` 工具类
+
+## [0.5.0]
+
+新增 `SPLayoutWrapper` 包在App外，使自定义布局生效

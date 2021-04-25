@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'dart:ui' show window;
 
-export 'package:flutter_screenutil/screenutil_init.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// 物理屏幕，物理像素，它的size可以通过[window.physicalSize]获得，比如iPhone11 Pro的宽高是1125 * 2436
@@ -13,12 +12,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 extension SizeExtensionRPX on num {
   double get rpx => ScreenUtil().setWidth(this);
 }
-
-// Color rgba(int red, int green, int blue, double opacity) {
-//   return Color.fromRGBO(red, green, blue, opacity);
-// }
-
-// Color Function(int, int, int, double) get RGBA => rgba;
 
 class SPLayoutUtils {
   // 我们自己设定的虚拟屏幕宽度750
@@ -104,4 +97,33 @@ class SPLayoutUtils {
   /// 2.AppBar下面筛选、排序的bar
   /// 3.SidebarList左侧导航每条的高度
   static double get barHeight => 88.rpx;
+}
+
+/// 包裹应用，使自定义布局生效
+class SPLayoutWrapper extends StatelessWidget {
+  /// A helper widget that initializes [ScreenUtil]
+  SPLayoutWrapper({
+    @required this.builder,
+    this.designSize = ScreenUtil.defaultSize,
+    this.allowFontScaling = false,
+    Key key,
+  }) : super(key: key);
+
+  final Widget Function() builder;
+
+  /// The [Size] of the device in the design draft, in dp
+  final Size designSize;
+
+  /// Sets whether the font size is scaled according to the system's "font size" assist option
+  final bool allowFontScaling;
+
+  @override
+  Widget build(BuildContext context) {
+    return ScreenUtilInit(
+      key: key,
+      builder: builder,
+      designSize: designSize ?? SPLayoutUtils.designSize,
+      allowFontScaling: allowFontScaling,
+    );
+  }
 }
