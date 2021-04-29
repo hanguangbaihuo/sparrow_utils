@@ -11,14 +11,16 @@ class SPDateUtils {
   /// 格式化日期时间
   ///
   /// 默认格式是yyyy-MM-dd HH:mm:ss
-  static format(DateTime dt, [String format = 'yyyy-MM-dd HH:mm:ss']) {
+  static String format(DateTime dt, [String format = 'yyyy-MM-dd HH:mm:ss']) {
+    if (dt == null) return null;
+
     return DateFormat(format, "zh_CN").format(dt);
   }
 
   /// 通过字符串获得格式化的字符串
   ///
   /// 如果字符串不合法，返回null
-  static formatFromString(String formattedString,
+  static String formatFromString(String formattedString,
       [String format = 'yyyy-MM-dd HH:mm:ss']) {
     final dt = DateTime.tryParse(formattedString);
 
