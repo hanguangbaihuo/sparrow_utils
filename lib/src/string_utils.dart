@@ -2,10 +2,10 @@ import 'dart:math' show min, max;
 
 class SPStringUtils {
   static bool isValidPhone(String input) {
-    return input != null && input.startsWith('1') && input.length == 11;
+    return input.startsWith('1') && input.length == 11;
   }
 
-  static bool isNullOrBlank(String content) =>
+  static bool isNullOrBlank(String? content) =>
       content == null || content.isEmpty;
 
   static String getMaskPhone(String input) {

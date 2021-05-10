@@ -11,7 +11,7 @@ class SPDateUtils {
   /// 格式化日期时间
   ///
   /// 默认格式是yyyy-MM-dd HH:mm:ss
-  static String format(DateTime dt, [String format = 'yyyy-MM-dd HH:mm:ss']) {
+  static String? format(DateTime? dt, [String format = 'yyyy-MM-dd HH:mm:ss']) {
     if (dt == null) return null;
 
     return DateFormat(format, "zh_CN").format(dt);
@@ -20,7 +20,7 @@ class SPDateUtils {
   /// 通过字符串获得格式化的字符串
   ///
   /// 如果字符串不合法，返回null
-  static String formatFromString(String formattedString,
+  static String? formatFromString(String formattedString,
       [String format = 'yyyy-MM-dd HH:mm:ss']) {
     final dt = DateTime.tryParse(formattedString);
 
@@ -107,14 +107,14 @@ class SPDateUtils {
       DateTimeRange(start: lastMonthStart, end: thisMonthStart);
 
   /// 格式化时间：日期 星期 时分秒
-  static String formatWithWeek(String time) {
+  static String formatWithWeek(String? time) {
     return DateFormat('yyyy-MM-dd EEEE HH:mm:ss', "zh_CN")
         .format(DateTime.parse(time ?? '').toLocal());
   }
 
-  /// 格式化时间： 日期 时分秒
+  /// 格式化时间：日期 时分秒
   static String defaultFormatDate(String time) {
-    if (time == null || time == '') return '';
+    if (time == null || time.isEmpty) return '';
     return DateFormat('yyyy-MM-dd HH:mm:ss')
         .format(DateTime.parse(time).toLocal());
   }

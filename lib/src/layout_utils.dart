@@ -103,10 +103,9 @@ class SPLayoutUtils {
 class SPLayoutWrapper extends StatelessWidget {
   /// A helper widget that initializes [ScreenUtil]
   SPLayoutWrapper({
-    @required this.builder,
+    required this.builder,
     this.designSize = ScreenUtil.defaultSize,
-    this.allowFontScaling = false,
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   final Widget Function() builder;
@@ -114,16 +113,12 @@ class SPLayoutWrapper extends StatelessWidget {
   /// The [Size] of the device in the design draft, in dp
   final Size designSize;
 
-  /// Sets whether the font size is scaled according to the system's "font size" assist option
-  final bool allowFontScaling;
-
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       key: key,
       builder: builder,
-      designSize: designSize ?? SPLayoutUtils.designSize,
-      allowFontScaling: allowFontScaling,
+      designSize: designSize,
     );
   }
 }
