@@ -2,11 +2,15 @@ import 'package:enum_to_string/enum_to_string.dart';
 export 'package:enum_to_string/enum_to_string.dart';
 
 class SPEnumUtils {
-  static String convertToString(dynamic enumItem) {
-    return EnumToString.convertToString(enumItem);
+  /// 将枚举类型转成字符串
+  static String convertToString(dynamic enumItem, {bool camelCase = false}) {
+    return EnumToString.convertToString(enumItem, camelCase: camelCase);
   }
 
-  static T? fromString<T>(List<T> enumValues, String str) {
+  /// 通过字符串获得枚举值
+  static T? fromString<T>(List<T> enumValues, String? str) {
+    if (str == null) return null;
+
     return EnumToString.fromString<T>(enumValues, str);
   }
 }

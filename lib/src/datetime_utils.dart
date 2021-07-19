@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:intl/intl.dart' show DateFormat;
 export 'package:intl/intl.dart' show DateFormat;
@@ -8,26 +9,48 @@ export 'package:time/time.dart';
 
 /// DateTime的工具库
 class SPDateUtils {
+  /// 常用日期格式
+  static const String FORMAT_YYYY_MM_DD = "yyyy-MM-dd";
+
+  ///
+  static const String FORMAT_YYYYMMDD_HHMMSS = "yyyy-MM-dd HH:mm:ss";
+  static const String FORMAT_MMDD_HHMM = "MM-dd HH:mm";
+
+  ///
+  static const String FORMAT_T_YYYYMMDD = "yyyy-MM-ddTHH:mm:ss";
+  static const String FORMAT_T_YYYYMMDD_SSSSSS = "yyyy-MM-ddTHH:mm:ss.SSSSSS";
+
+  /// 时间选择器，不同的模式，对应不同的格式
+  /// 目前用于筛选栏中的时间选择器
+  static Map<CupertinoDatePickerMode, String> get datePickerModeAndTimeFormat =>
+      {
+        CupertinoDatePickerMode.date: SPDateUtils.FORMAT_YYYY_MM_DD,
+        CupertinoDatePickerMode.dateAndTime: SPDateUtils.FORMAT_YYYYMMDD_HHMMSS,
+      };
+
   /// 格式化日期时间
   ///
   /// 默认格式是yyyy-MM-dd HH:mm:ss
-  static String? format(DateTime? dt, [String format = 'yyyy-MM-dd HH:mm:ss']) {
+  static String? format(DateTime? dt,
+      [String formatString = 'yyyy-MM-dd HH:mm:ss']) {
     if (dt == null) return null;
 
-    return DateFormat(format, "zh_CN").format(dt);
+    return DateFormat(formatString, "zh_CN").format(dt);
   }
 
   /// 通过字符串获得格式化的字符串
   ///
   /// 如果字符串不合法，返回null
   static String? formatFromString(String formattedString,
-      [String format = 'yyyy-MM-dd HH:mm:ss']) {
+      [String formatString = 'yyyy-MM-dd HH:mm:ss']) {
     final dt = DateTime.tryParse(formattedString);
 
     if (dt == null) return null;
 
-    return DateFormat(format, "zh_CN").format(dt);
+    return DateFormat(formatString, "zh_CN").format(dt);
   }
+
+  // ************************ 今天 ************************ //
 
   /// 今天0时
   static DateTime get todayStart {
@@ -42,6 +65,8 @@ class SPDateUtils {
   static DateTimeRange get today =>
       DateTimeRange(start: todayStart, end: todayEnd);
 
+  // ************************ 昨天 ************************ //
+
   /// 获得昨天的时间间隔
   static DateTimeRange get yesterday {
     // 今天的0时，是昨天的结束时间
@@ -51,6 +76,8 @@ class SPDateUtils {
       end: todayStart,
     );
   }
+
+  // ************************ 月份 ************************ //
 
   /// 本月起始时刻，本月1日0时，也是上月结束时刻
   static DateTime get thisMonthStart {
@@ -106,6 +133,17 @@ class SPDateUtils {
   static DateTimeRange get lastMonth =>
       DateTimeRange(start: lastMonthStart, end: thisMonthStart);
 
+  // ************************ 年份 ************************ //
+  /// 获得今年的时间间隔
+  static DateTimeRange get thisYear =>
+      DateTimeRange(start: thisYearStart, end: todayEnd);
+
+  ///今年1月1日
+  static DateTime get thisYearStart {
+    final now = DateTime.now();
+    return DateTime(now.year, 1, 1, 0, 0, 0);
+  }
+
   /// 格式化时间：日期 星期 时分秒
   static String formatWithWeek(String? time) {
     return DateFormat('yyyy-MM-dd EEEE HH:mm:ss', "zh_CN")
@@ -145,5 +183,34 @@ class SPDateUtils {
       if (withTime) formatStr += ' HH:mm';
       return DateFormat(formatStr).format(dt);
     }
+  }
+
+  ///yyyy-MM-ddTHH:mm:ss.SSSSSS
+  static String dateFormatTDate(String outFormatStr, String? value) {
+    String formatted = "";
+    try {
+      DateTime tempDate =
+          new DateFormat("yyyy-MM-ddTHH:mm:ss.SSSSSS").parse('$value');
+      final DateFormat formatter = DateFormat(outFormatStr);
+      formatted = formatter.format(tempDate);
+    } catch (e) {}
+
+    return formatted;
+  }
+
+  ///date format
+  ///@param value 输入日期
+  ///@param inFormatStr 输入日期格式化
+  ///@param outFormatStr 输出日期格式化
+  static String dateFormat(
+      String value, String inFormatStr, String outFormatStr) {
+    String formatted = "";
+    try {
+      DateTime tempDate = new DateFormat(inFormatStr).parse('$value');
+      final DateFormat formatter = DateFormat(outFormatStr);
+      formatted = formatter.format(tempDate);
+    } catch (e) {}
+
+    return formatted;
   }
 }
