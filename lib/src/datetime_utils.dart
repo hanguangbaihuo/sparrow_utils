@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
 import 'package:intl/intl.dart' show DateFormat;
 export 'package:intl/intl.dart' show DateFormat;
@@ -19,14 +18,6 @@ class SPDateUtils {
   ///
   static const String FORMAT_T_YYYYMMDD = "yyyy-MM-ddTHH:mm:ss";
   static const String FORMAT_T_YYYYMMDD_SSSSSS = "yyyy-MM-ddTHH:mm:ss.SSSSSS";
-
-  /// 时间选择器，不同的模式，对应不同的格式
-  /// 目前用于筛选栏中的时间选择器
-  static Map<CupertinoDatePickerMode, String> get datePickerModeAndTimeFormat =>
-      {
-        CupertinoDatePickerMode.date: SPDateUtils.FORMAT_YYYY_MM_DD,
-        CupertinoDatePickerMode.dateAndTime: SPDateUtils.FORMAT_YYYYMMDD_HHMMSS,
-      };
 
   /// 格式化日期时间
   ///
@@ -151,7 +142,7 @@ class SPDateUtils {
   }
 
   /// 格式化时间：日期 时分秒
-  static String defaultFormatDate(String time) {
+  static String defaultFormatDate(String? time) {
     if (time == null || time.isEmpty) return '';
     return DateFormat('yyyy-MM-dd HH:mm:ss')
         .format(DateTime.parse(time).toLocal());
@@ -162,7 +153,7 @@ class SPDateUtils {
   static int dateTimeNowMilli() => DateTime.now().millisecondsSinceEpoch;
 
   /// 获得相对时间
-  static String getRelativeFormat(DateTime dt, {bool withTime = false}) {
+  static String getRelativeFormat(DateTime? dt, {bool withTime = false}) {
     // 格式化最后一条消息的显示时间
     // 如果是当天的信息，只显示具体时分；
     // 否则，如果是当年的信息，显示年月；
@@ -183,6 +174,36 @@ class SPDateUtils {
       if (withTime) formatStr += ' HH:mm';
       return DateFormat(formatStr).format(dt);
     }
+  }
+
+  /// 格式化聊天列表页的时间
+  static String? formatChatListTime(String? time) {
+    if (time == null || time == '') return "";
+
+    /// 获取当前时间
+    DateTime now = new DateTime.now();
+    DateTime tempDate = DateFormat(SPDateUtils.FORMAT_T_YYYYMMDD).parse(time);
+
+    /// 当天，返回时间，例如：14:26
+    if (SPDateUtils.format(now, SPDateUtils.FORMAT_YYYY_MM_DD) ==
+        SPDateUtils.format(tempDate, SPDateUtils.FORMAT_YYYY_MM_DD)) {
+      return SPDateUtils.format(tempDate, "HH:mm");
+    }
+
+    /// 前一天，返回“昨天”
+    if (SPDateUtils.format(now - 1.days, SPDateUtils.FORMAT_YYYY_MM_DD) ==
+        SPDateUtils.format(tempDate, SPDateUtils.FORMAT_YYYY_MM_DD)) {
+      return SPDateUtils.format(tempDate, "昨天");
+    }
+
+    /// 当年，返回 02-03
+    if (SPDateUtils.format(now, 'yyyy') ==
+        SPDateUtils.format(tempDate, 'yyyy')) {
+      return SPDateUtils.format(tempDate, 'MM-dd');
+    }
+
+    /// 非当年 返回 2021-07-14
+    return SPDateUtils.format(tempDate, SPDateUtils.FORMAT_YYYY_MM_DD);
   }
 
   ///yyyy-MM-ddTHH:mm:ss.SSSSSS
